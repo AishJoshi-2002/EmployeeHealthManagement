@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/aish/Downloads/Aish/Work/EmployeeHealthManagement/Frontend/Frontend.csproj": {}
+    "C:\\Users\\aishj\\Downloads\\work\\EmployeeHealthManagement\\Frontend\\Frontend.csproj": {}
   },
   "projects": {
-    "/Users/aish/Downloads/Aish/Work/EmployeeHealthManagement/Frontend/Frontend.csproj": {
+    "C:\\Users\\aishj\\Downloads\\work\\EmployeeHealthManagement\\Frontend\\Frontend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/aish/Downloads/Aish/Work/EmployeeHealthManagement/Frontend/Frontend.csproj",
+        "projectUniqueName": "C:\\Users\\aishj\\Downloads\\work\\EmployeeHealthManagement\\Frontend\\Frontend.csproj",
         "projectName": "Frontend",
-        "projectPath": "/Users/aish/Downloads/Aish/Work/EmployeeHealthManagement/Frontend/Frontend.csproj",
-        "packagesPath": "/Users/aish/.nuget/packages/",
-        "outputPath": "/Users/aish/Downloads/Aish/Work/EmployeeHealthManagement/Frontend/obj/",
+        "projectPath": "C:\\Users\\aishj\\Downloads\\work\\EmployeeHealthManagement\\Frontend\\Frontend.csproj",
+        "packagesPath": "C:\\Users\\aishj\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\aishj\\Downloads\\work\\EmployeeHealthManagement\\Frontend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/aish/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\aishj\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -72,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
