@@ -1,11 +1,11 @@
 .page {
-    position: relative;
     display: flex;
-    flex-direction: row;
+    min-height: 100vh;
 }
 
 main {
     flex: 1;
+    min-width: 0;
 }
 
 #blazor-error-ui {

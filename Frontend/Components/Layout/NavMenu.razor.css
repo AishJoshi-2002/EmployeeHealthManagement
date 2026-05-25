@@ -1,7 +1,10 @@
 /* SIDEBAR */
 .sidebar {
-    width: 270px;
+    position: sticky;
+    top: 0;
     height: 100vh;
+    width: 270px;
+    /* min-height: 100vh; */
     background: #ffffff;
     border-right: 1px solid #e5e7eb;
     top: 0;
