@@ -27,10 +27,6 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aishj/Downloads/work/EmployeeHealthManagement/Frontend/Components/Pages/Admin/AddHospital.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxBZGRIb3NwaXRhbC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/aishj/Downloads/work/EmployeeHealthManagement/Frontend/Components/Pages/Admin/CityMaster.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxDaXR5TWFzdGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -98,3 +94,7 @@ build_metadata.AdditionalFiles.CssScope = b-ftcrkoicqg
 [C:/Users/aishj/Downloads/work/EmployeeHealthManagement/Frontend/Components/Layout/ReconnectModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcUmVjb25uZWN0TW9kYWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-r2f2ppjcxf
+
+[C:/Users/aishj/Downloads/work/EmployeeHealthManagement/Frontend/Components/Pages/Admin/AddHospital.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxBZGRIb3NwaXRhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ncuskdlfvb

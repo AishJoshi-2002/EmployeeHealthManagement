@@ -82,5 +82,6 @@ C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.
 C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\Frontend.genruntimeconfig.cache
 C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\ref\Frontend.dll
 C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\compressed\4hytaxu7cz-{0}-5ipweew5fc-5ipweew5fc.gz
-C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\compressed\58vwizni16-{0}-wbsqzg8ex9-wbsqzg8ex9.gz
-C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\compressed\8jbmea23pl-{0}-wbsqzg8ex9-wbsqzg8ex9.gz
+C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\scopedcss\Components\Pages\Admin\AddHospital.razor.rz.scp.css
+C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\compressed\58vwizni16-{0}-07amhula3e-07amhula3e.gz
+C:\Users\aishj\Downloads\work\EmployeeHealthManagement\Frontend\obj\Debug\net10.0\compressed\8jbmea23pl-{0}-07amhula3e-07amhula3e.gz

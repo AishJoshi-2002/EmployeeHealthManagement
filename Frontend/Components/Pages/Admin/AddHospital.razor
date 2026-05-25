@@ -1,5 +1,219 @@
 ﻿@page "/add-hospital"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Http
+@using System.Net.Http.Json
+@rendermode InteractiveServer
 
 <PageTitle>Add Hospital</PageTitle>
 
-<h1>Add Hospital</h1>
+<div class="hospital-page">
+
+    <div class="form-card">
+
+        <h3 class="page-title">Add Hospital Master Data</h3>
+
+        <EditForm Model="@hospitalModel" OnSubmit="HandleSubmit" FormName="AddHospitalForm">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-grid">
+
+                <!-- Hospital Id -->
+                <div class="form-group">
+                    <label>Hospital Id/Vendor Code<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.HospitalCode" />
+                    <ValidationMessage For="@(() => hospitalModel.HospitalCode)" />
+                </div>
+
+                <!-- Hospital Name -->
+                <div class="form-group">
+                    <label>Hospital Name<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.HospitalName" />
+                    <ValidationMessage For="@(() => hospitalModel.HospitalName)" />
+                </div>
+
+                <!-- Address 1 -->
+                <div class="form-group">
+                    <label>Hospital Address Line 1<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Address1" />
+                    <ValidationMessage For="@(() => hospitalModel.Address1)" />
+                </div>
+
+                <!-- Address 2 -->
+                <div class="form-group">
+                    <label>Hospital Address Line 2</label>
+                    <InputText class="form-control custom-input normal-border" @bind-Value="hospitalModel.Address2" />
+                </div>
+
+                <!-- State -->
+                <div class="form-group">
+                    <label>State<span>*</span></label>
+                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.State">
+                        <option value="">--Select Value--</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => hospitalModel.State)" />
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label>City<span>*</span></label>
+                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.City">
+                        <option value="">--Select Value--</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => hospitalModel.City)" />
+                </div>
+
+                <!-- Pincode -->
+                <div class="form-group">
+                    <label>Pincode<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Pincode" />
+                    <ValidationMessage For="@(() => hospitalModel.Pincode)" />
+                </div>
+
+                <!-- Contact No -->
+                <div class="form-group">
+                    <label>Contact No (LL)</label>
+                    <InputText class="form-control custom-input normal-border" placeholder="e.g. 0124-0000000"
+                               @bind-Value="hospitalModel.ContactNoLL" />
+                </div>
+
+                <!-- Contact Person -->
+                <div class="form-group">
+                    <label>Contact Person<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.ContactPerson" />
+                    <ValidationMessage For="@(() => hospitalModel.ContactPerson)" />
+                </div>
+
+                <!-- Contact Designation -->
+                <div class="form-group">
+                    <label>Contact Person Designation<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.ContactDesignation" />
+                    <ValidationMessage For="@(() => hospitalModel.ContactDesignation)" />
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Contact Person Email<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Email" />
+                    @* <input class="form-control custom-input" @bind="hospitalModel.Email" @bind:event="oninput" /> *@
+                    <ValidationMessage For="@(() => hospitalModel.Email)" />
+                </div>
+
+                <!-- Mobile -->
+                <div class="form-group">
+                    <label>Contact No (M)<span>*</span></label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Mobile" />
+                    <ValidationMessage For="@(() => hospitalModel.Mobile)" />
+                </div>
+
+                <!-- Alternate Person -->
+                <div class="form-group">
+                    <label>Alternate Contact Person</label>
+                    <InputText class="form-control custom-input normal-border"
+                               @bind-Value="hospitalModel.AlternatePerson" />
+                </div>
+
+                <!-- Alternate Designation -->
+                <div class="form-group">
+                    <label>Alternate Contact Person Designation</label>
+                    <InputText class="form-control custom-input normal-border"
+                               @bind-Value="hospitalModel.AlternateDesignation" />
+                </div>
+
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="save-btn">
+                    Add Hospital
+                </button>
+            </div>
+
+        </EditForm>
+
+    </div>
+
+</div>
+
+@code {
+
+    private HospitalModel hospitalModel = new();
+
+    private async Task HandleSubmit(EditContext editContext)
+    {
+        Console.WriteLine("FORM SUBMITTED");
+        Console.WriteLine(
+        System.Text.Json.JsonSerializer.Serialize(hospitalModel)
+    );
+        try
+        {
+            var response = await Http.PostAsJsonAsync(
+                "api/hospital/add",
+                @* https://jsonplaceholder.typicode.com/posts *@
+                hospitalModel
+            );
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("SUCCESS");
+            }
+            else
+            {
+                Console.WriteLine("FAILED");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    public class HospitalModel
+    {
+        [Required(ErrorMessage = "Hospital Code is required")]
+        public string HospitalCode { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Hospital Name is required")]
+        public string HospitalName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Address Line 1 is required")]
+        public string Address1 { get; set; } = string.Empty;
+
+        public string? Address2 { get; set; }
+
+        [Required(ErrorMessage = "State is required")]
+        public string State { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "City is required")]
+        public string City { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Pincode is required")]
+        public string Pincode { get; set; } = string.Empty;
+
+        public string? ContactNoLL { get; set; }
+
+        [Required(ErrorMessage = "Contact Person is required")]
+        public string ContactPerson { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Designation is required")]
+        public string ContactDesignation { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Mobile Number is required")]
+        public string Mobile { get; set; } = string.Empty;
+
+        public string? AlternatePerson { get; set; }
+
+        public string? AlternateDesignation { get; set; }
+    }
+}
