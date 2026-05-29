@@ -203,6 +203,7 @@
         public string? HospitalCode { get; set; }
 
         [Required(ErrorMessage = "Hospital Name is required")]
+        [MaxLength(100, ErrorMessage = "Hospital Name cannot exceed 100 characters")]
         public string? HospitalName { get; set; }
 
         [Required(ErrorMessage = "Address Line 1 is required")]
