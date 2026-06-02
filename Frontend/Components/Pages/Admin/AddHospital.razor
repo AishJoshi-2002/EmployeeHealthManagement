@@ -1,4 +1,6 @@
 ﻿@page "/add-hospital"
+@using Frontend.Models
+@using Frontend.Data
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Forms
 @inject HttpClient Http
@@ -15,7 +17,6 @@
         <h3 class="page-title">Add Hospital Master Data</h3>
 
         <EditForm Model="@hospitalModel" OnValidSubmit="HandleSubmit" FormName="AddHospitalForm">
-
             <DataAnnotationsValidator />
             @* <ValidationSummary /> *@
 
@@ -55,26 +56,34 @@
                 <!-- State -->
                 <div class="form-group">
                     <label>State<span>*</span></label>
-                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.State"
-                                 @bind:event="oninput">
-                        <option value="">--Select Value--</option>
-                        <option value="Rajasthan">Rajasthan</option>
-                        <option value="Delhi">Delhi</option>
-                        <option value="Maharashtra">Maharashtra</option>
+                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.StateId"
+                                 @bind-Value:after="OnStateChanged">
+                        <option value="">--Select State--</option>
+                        @foreach (var state in states)
+                        {
+                            <option value="@state.Id">
+                                @state.Name
+                            </option>
+                        }
                     </InputSelect>
-                    <ValidationMessage For="@(() => hospitalModel.State)" />
+                    <ValidationMessage For="@(() => hospitalModel.StateId)" />
                 </div>
 
                 <!-- City -->
                 <div class="form-group">
                     <label>City<span>*</span></label>
-                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.City">
-                        <option value="">--Select Value--</option>
-                        <option value="Jaipur">Jaipur</option>
-                        <option value="Delhi">Delhi</option>
-                        <option value="Mumbai">Mumbai</option>
+                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.CityId"
+                                 @bind-Value:after="OnCityChanged">
+                        <option value="">--Select City--</option>
+                        @foreach (var city in cities)
+                        {
+                            <option value="@city.Id">
+                                @city.Name
+                            </option>
+                        }
                     </InputSelect>
-                    <ValidationMessage For="@(() => hospitalModel.City)" />
+
+                    <ValidationMessage For="@(() => hospitalModel.CityId)" />
                 </div>
 
                 <!-- Pincode -->
@@ -156,8 +165,47 @@
 
     private HospitalModel hospitalModel = new();
 
+    private List<StateModel> states = LocationData.States;
+
+    private List<CityModel> cities = new();
+
+    private void OnStateChanged()
+    {
+        if (hospitalModel.StateId != null)
+        {
+            var selectedState = states.FirstOrDefault(
+                x => x.Id == hospitalModel.StateId
+            );
+
+            hospitalModel.StateName = selectedState?.Name;
+
+            cities = LocationData.Cities
+                .Where(c => c.StateId == hospitalModel.StateId)
+                .ToList();
+
+            // reset city
+            hospitalModel.CityId = null;
+            hospitalModel.CityName = null;
+        }
+    }
+
+    private void OnCityChanged()
+    {
+        if (hospitalModel.CityId != null)
+        {
+            var selectedCity = cities.FirstOrDefault(
+                c => c.Id == hospitalModel.CityId
+            );
+
+            hospitalModel.CityName = selectedCity?.Name;
+        }
+    }
+
     private async Task HandleSubmit()
     {
+        Console.WriteLine("FORM SUBMITTED");
+        Console.WriteLine(
+        System.Text.Json.JsonSerializer.Serialize(hospitalModel));
         try
         {
             var response = await Http.PostAsJsonAsync(
@@ -194,50 +242,5 @@
         {
             Console.WriteLine(ex.Message);
         }
-    }
-
-    public class HospitalModel
-    {
-        [Required(ErrorMessage = "Hospital Code is required")]
-        [MaxLength(7, ErrorMessage = "Hospital Code cannot exceed 7 characters")]
-        public string? HospitalCode { get; set; }
-
-        [Required(ErrorMessage = "Hospital Name is required")]
-        [MaxLength(100, ErrorMessage = "Hospital Name cannot exceed 100 characters")]
-        public string? HospitalName { get; set; }
-
-        [Required(ErrorMessage = "Address Line 1 is required")]
-        public string? Address1 { get; set; }
-
-        public string? Address2 { get; set; }
-
-        [Required(ErrorMessage = "State is required")]
-        public string? State { get; set; }
-
-        [Required(ErrorMessage = "City is required")]
-        public string? City { get; set; }
-
-        [Required(ErrorMessage = "Pincode is required")]
-        public string? Pincode { get; set; }
-
-        public string? ContactNoLL { get; set; }
-
-        [Required(ErrorMessage = "Contact Person is required")]
-        public string? ContactPerson { get; set; }
-
-        [Required(ErrorMessage = "Designation is required")]
-        public string? ContactDesignation { get; set; }
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Please enter a valid email")]
-        public string? Email { get; set; }
-
-        [Required(ErrorMessage = "Mobile Number is required")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Contact Number must be exactly 10 digits")]
-        public string? Mobile { get; set; }
-
-        public string? AlternatePerson { get; set; }
-
-        public string? AlternateDesignation { get; set; }
     }
 }
