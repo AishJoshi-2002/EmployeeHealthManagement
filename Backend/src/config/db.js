@@ -3,7 +3,8 @@ const sql = require("mssql");
 const config = {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,
+    server: "localhost",
+    port: 51221,
     database: process.env.DB_DATABASE,
 
     options: {
@@ -11,6 +12,8 @@ const config = {
         trustServerCertificate: true
     }
 };
+
+console.log(config);
 
 async function connectDB() {
     try {

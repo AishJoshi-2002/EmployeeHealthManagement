@@ -25,38 +25,38 @@
                 <!-- Hospital Id -->
                 <div class="form-group">
                     <label>Hospital Id/Vendor Code<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.HospitalCode"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.hospitalId"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.HospitalCode)" />
+                    <ValidationMessage For="@(() => hospitalModel.hospitalId)" />
                 </div>
 
                 <!-- Hospital Name -->
                 <div class="form-group">
                     <label>Hospital Name<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.HospitalName"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.name"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.HospitalName)" />
+                    <ValidationMessage For="@(() => hospitalModel.name)" />
                 </div>
 
                 <!-- Address 1 -->
                 <div class="form-group">
                     <label>Hospital Address Line 1<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Address1"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.address1"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.Address1)" />
+                    <ValidationMessage For="@(() => hospitalModel.address1)" />
                 </div>
 
                 <!-- Address 2 -->
                 <div class="form-group">
                     <label>Hospital Address Line 2</label>
-                    <InputText class="form-control custom-input normal-border" @bind-Value="hospitalModel.Address2"
+                    <InputText class="form-control custom-input normal-border" @bind-Value="hospitalModel.address2"
                                @bind:event="oninput" />
                 </div>
 
                 <!-- State -->
                 <div class="form-group">
                     <label>State<span>*</span></label>
-                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.StateId"
+                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.stateId"
                                  @bind-Value:after="OnStateChanged">
                         <option value="">--Select State--</option>
                         @foreach (var state in states)
@@ -66,13 +66,13 @@
                             </option>
                         }
                     </InputSelect>
-                    <ValidationMessage For="@(() => hospitalModel.StateId)" />
+                    <ValidationMessage For="@(() => hospitalModel.stateId)" />
                 </div>
 
                 <!-- City -->
                 <div class="form-group">
                     <label>City<span>*</span></label>
-                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.CityId"
+                    <InputSelect class="form-control custom-input" @bind-Value="hospitalModel.cityId"
                                  @bind-Value:after="OnCityChanged">
                         <option value="">--Select City--</option>
                         @foreach (var city in cities)
@@ -83,68 +83,68 @@
                         }
                     </InputSelect>
 
-                    <ValidationMessage For="@(() => hospitalModel.CityId)" />
+                    <ValidationMessage For="@(() => hospitalModel.cityId)" />
                 </div>
 
                 <!-- Pincode -->
                 <div class="form-group">
                     <label>Pincode<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Pincode"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.pincode"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.Pincode)" />
+                    <ValidationMessage For="@(() => hospitalModel.pincode)" />
                 </div>
 
                 <!-- Contact No -->
                 <div class="form-group">
                     <label>Contact No (LL)</label>
                     <InputText class="form-control custom-input normal-border" placeholder="e.g. 0124-0000000"
-                               @bind-Value="hospitalModel.ContactNoLL" @bind:event="oninput" />
+                               @bind-Value="hospitalModel.contactNoLL" @bind:event="oninput" />
                 </div>
 
                 <!-- Contact Person -->
                 <div class="form-group">
                     <label>Contact Person<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.ContactPerson"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactPerson"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.ContactPerson)" />
+                    <ValidationMessage For="@(() => hospitalModel.contactPerson)" />
                 </div>
 
                 <!-- Contact Designation -->
                 <div class="form-group">
                     <label>Contact Person Designation<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.ContactDesignation"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactPersonDesignation"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.ContactDesignation)" />
+                    <ValidationMessage For="@(() => hospitalModel.contactPersonDesignation)" />
                 </div>
 
                 <!-- Email -->
                 <div class="form-group">
                     <label>Contact Person Email<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Email"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactPersonEmail"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.Email)" />
+                    <ValidationMessage For="@(() => hospitalModel.contactPersonEmail)" />
                 </div>
 
                 <!-- Mobile -->
                 <div class="form-group">
                     <label>Contact No (M)<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.Mobile"
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactNoM"
                                @bind:event="oninput" />
-                    <ValidationMessage For="@(() => hospitalModel.Mobile)" />
+                    <ValidationMessage For="@(() => hospitalModel.contactNoM)" />
                 </div>
 
                 <!-- Alternate Person -->
                 <div class="form-group">
                     <label>Alternate Contact Person</label>
                     <InputText class="form-control custom-input normal-border"
-                               @bind-Value="hospitalModel.AlternatePerson" @bind:event="oninput" />
+                               @bind-Value="hospitalModel.altContactPerson" @bind:event="oninput" />
                 </div>
 
                 <!-- Alternate Designation -->
                 <div class="form-group">
                     <label>Alternate Contact Person Designation</label>
                     <InputText class="form-control custom-input normal-border"
-                               @bind-Value="hospitalModel.AlternateDesignation" @bind:event="oninput" />
+                               @bind-Value="hospitalModel.altContactPersonDesignation" @bind:event="oninput" />
                 </div>
 
             </div>
@@ -171,33 +171,33 @@
 
     private void OnStateChanged()
     {
-        if (hospitalModel.StateId != null)
+        if (hospitalModel.stateId != null)
         {
             var selectedState = states.FirstOrDefault(
-                x => x.Id == hospitalModel.StateId
+                x => x.Id == hospitalModel.stateId
             );
 
-            hospitalModel.StateName = selectedState?.Name;
+            hospitalModel.stateName = selectedState?.Name;
 
             cities = LocationData.Cities
-                .Where(c => c.StateId == hospitalModel.StateId)
+                .Where(c => c.StateId == hospitalModel.stateId)
                 .ToList();
 
             // reset city
-            hospitalModel.CityId = null;
-            hospitalModel.CityName = null;
+            hospitalModel.cityId = null;
+            hospitalModel.cityName = null;
         }
     }
 
     private void OnCityChanged()
     {
-        if (hospitalModel.CityId != null)
+        if (hospitalModel.cityId != null)
         {
             var selectedCity = cities.FirstOrDefault(
-                c => c.Id == hospitalModel.CityId
+                c => c.Id == hospitalModel.cityId
             );
 
-            hospitalModel.CityName = selectedCity?.Name;
+            hospitalModel.cityName = selectedCity?.Name;
         }
     }
 
@@ -209,9 +209,8 @@
         try
         {
             var response = await Http.PostAsJsonAsync(
-                "https://jsonplaceholder.typicode.com/posts",
-                @* https://jsonplaceholder.typicode.com/posts *@
-                @* api/hospital/add *@
+                @* "https://jsonplaceholder.typicode.com/posts", *@
+                "http://localhost:3000/api/hospital",
                 hospitalModel
             );
 
