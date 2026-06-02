@@ -28,6 +28,8 @@ public class HospitalModel
     public string? cityName { get; set; }
 
     [Required(ErrorMessage = "Pincode is required")]
+    [RegularExpression(@"^[1-9]\d{5}$",
+    ErrorMessage = "Please enter a valid 6-digit pincode")]
     public string? pincode { get; set; }
 
     public string? contactNoLL { get; set; }
@@ -43,7 +45,8 @@ public class HospitalModel
     public string? contactPersonEmail { get; set; }
 
     [Required(ErrorMessage = "Mobile Number is required")]
-    [RegularExpression(@"^\d{10}$", ErrorMessage = "Contact Number must be exactly 10 digits")]
+    [RegularExpression(@"^[6-9]\d{9}$",
+    ErrorMessage = "Please enter a valid 10-digit mobile number")]
     public string? contactNoM { get; set; }
 
     public string? altContactPerson { get; set; }

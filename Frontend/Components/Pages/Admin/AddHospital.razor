@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label>Hospital Id/Vendor Code<span>*</span></label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.hospitalId"
-                               @bind:event="oninput" />
+                               @bind:event="oninput" maxlength="7" />
                     <ValidationMessage For="@(() => hospitalModel.hospitalId)" />
                 </div>
 
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label>Hospital Name<span>*</span></label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.name"
-                               @bind:event="oninput" />
+                               @bind:event="oninput" maxlength="100" />
                     <ValidationMessage For="@(() => hospitalModel.name)" />
                 </div>
 
@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label>Pincode<span>*</span></label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.pincode"
-                               @bind:event="oninput" />
+                               @bind:event="oninput" maxlength="6" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     <ValidationMessage For="@(() => hospitalModel.pincode)" />
                 </div>
 
@@ -129,7 +129,7 @@
                 <div class="form-group">
                     <label>Contact No (M)<span>*</span></label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactNoM"
-                               @bind:event="oninput" />
+                               @bind:event="oninput" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     <ValidationMessage For="@(() => hospitalModel.contactNoM)" />
                 </div>
 
