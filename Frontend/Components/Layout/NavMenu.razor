@@ -14,7 +14,7 @@
         }
 
         <button type="button" class="toggle-btn" @onclick="ToggleSidebar">
-            ☰
+            <span class="bi @(isCollapsed ? "bi-caret-right-fill" : "bi-layout-sidebar-inset")" aria-hidden="true"></span>
         </button>
 
     </div>
@@ -26,7 +26,7 @@
             <div class="sub-box">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="bi bi-list" aria-hidden="true"></span>
+                        <span class="bi bi-hospital" aria-hidden="true"></span>
                         @if (!isCollapsed)
                         {
                             <span>Hospital Master</span>
@@ -35,40 +35,45 @@
                     <div class="sub-sub-box">
                         <div class="nav-item px-3">
                             <NavLink class="nav-link" href="add-hospital">
-                                <span class="bi bi-grid-1x2" aria-hidden="true"></span> Add Hospital
+                                <span class="bi bi-plus-square" aria-hidden="true"></span>
+                                @if (!isCollapsed) { <span>Add Hospital</span> }
                             </NavLink>
                         </div>
                         <div class="nav-item px-3">
                             <NavLink class="nav-link" href="update-hospital">
-                                <span class="bi bi-grid-1x2" aria-hidden="true"></span> Update Hospital
+                                <span class="bi bi-pencil-square" aria-hidden="true"></span>
+                                @if (!isCollapsed) { <span>Update Hospital</span> }
                             </NavLink>
                         </div>
                         <div class="nav-item px-3">
                             <NavLink class="nav-link" href="update-hospital-rates">
-                                <span class="bi bi-grid-1x2" aria-hidden="true"></span> Update Hospital
-                                Rates
+                                <span class="bi-clipboard-data" aria-hidden="true"></span>
+                                @if (!isCollapsed) { <span>Update Hospital Rates</span> }
                             </NavLink>
                         </div>
                     </div>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="city-master">
-                        <span class="bi bi-list" aria-hidden="true"></span> City Master
+                        <span class="bi bi-buildings" aria-hidden="true"></span>
+                        @if (!isCollapsed) { <span>City Master</span> }
                     </NavLink>
                 </div>
             </div>
 
 
-            <div class="nav-heading">EMPLOYEE</div>
+            <div class="nav-heading @((isCollapsed) ? "nav-heading-collapsed" : "")">EMPLOYEE</div>
             <div class="sub-box">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="executive-health-checkup">
-                        <span class="bi bi-list" aria-hidden="true"></span> Executive Health Checkup
+                        <span class="bi bi-heart-pulse" aria-hidden="true"></span>
+                        @if (!isCollapsed) { <span>Executive Health Checkup</span> }
                     </NavLink>
                     <div class="sub-sub-box">
                         <div class="nav-item px-3">
                             <NavLink class="nav-link" href="health-checkup-request">
-                                <span class="bi bi-grid-1x2" aria-hidden="true"></span> Health Checkup Request
+                                <span class="bi bi-file-medical" aria-hidden="true"></span>
+                                @if (!isCollapsed) { <span>Health Checkup Request</span> }
                             </NavLink>
                         </div>
                     </div>
@@ -76,36 +81,40 @@
             </div>
 
 
-            <div class="nav-heading">SBU</div>
+            <div class="nav-heading @((isCollapsed) ? "nav-heading-collapsed" : "")">SBU</div>
             <div class="sub-box">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="sbu-approve-reject">
-                        <span class="bi bi-list" aria-hidden="true"></span> Approve/Reject
+                        <span class="bi bi-clipboard-check" aria-hidden="true"></span>
+                        @if (!isCollapsed) { <span>Approve/Reject</span> }
                     </NavLink>
                 </div>
             </div>
 
 
-            <div class="nav-heading">HR</div>
+            <div class="nav-heading @((isCollapsed) ? "nav-heading-collapsed" : "")">HR</div>
             <div class="sub-box">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="hr-approve-reject">
-                        <span class="bi bi-list" aria-hidden="true"></span> Approve/Reject
+                        <span class="bi bi-clipboard-check" aria-hidden="true"></span>
+                        @if (!isCollapsed) { <span>Approve/Reject</span> }
                     </NavLink>
                 </div>
             </div>
 
 
-            <div class="nav-heading">FINANCE</div>
+            <div class="nav-heading @((isCollapsed) ? "nav-heading-collapsed" : "")">FINANCE</div>
             <div class="sub-box">
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="bill">
-                        <span class="bi bi-list" aria-hidden="true"></span> Bill
+                        <span class="bi bi-receipt" aria-hidden="true"></span>
+                        @if (!isCollapsed) { <span>Bill</span> }
                     </NavLink>
                     <div class="sub-sub-box">
                         <div class="nav-item px-3">
                             <NavLink class="nav-link" href="prepare-bill">
-                                <span class="bi bi-grid-1x2" aria-hidden="true"></span> Prepare Bill
+                                <span class="bi-file-earmark-plus" aria-hidden="true"></span>
+                                @if (!isCollapsed) { <span>Prepare Bill</span> }
                             </NavLink>
                         </div>
                     </div>

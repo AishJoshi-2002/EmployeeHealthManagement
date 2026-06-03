@@ -6,6 +6,7 @@
 main {
     flex: 1;
     min-width: 0;
+    transition: margin-left 0.3s ease;
 }
 
 #blazor-error-ui {
