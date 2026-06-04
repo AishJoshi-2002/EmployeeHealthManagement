@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Components.Forms
 @inject HttpClient Http
 @inject IJSRuntime JS
+@inject NavigationManager Navigation
 @using System.Net.Http.Json
 @rendermode InteractiveServer
 
@@ -147,11 +148,71 @@
                                @bind-Value="hospitalModel.altContactPersonDesignation" @bind:event="oninput" />
                 </div>
 
+                <!-- Alternate Email -->
+                <div class="form-group">
+                    <label>Alternate Contact Person Email</label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactPersonEmail"
+                               @bind:event="oninput" />
+                    <ValidationMessage For="@(() => hospitalModel.altContactPersonEmail)" />
+                </div>
+
+                <!-- Alternate No (M) -->
+                <div class="form-group">
+                    <label>Alternate Contact No (M)</label>
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactNoM"
+                               @bind:event="oninput" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <ValidationMessage For="@(() => hospitalModel.altContactPersonNoM)" />
+                </div>
+
+                <!-- Rate Male -->
+                <div class="form-group">
+                    <label>Rate Male<span>*</span></label>
+                    <InputText class="form-control custom-input normal-border"
+                               @bind-Value="hospitalModel.rateMale" @bind:event="oninput" />
+                    <ValidationMessage For="@(() => hospitalModel.rateMale)" />
+                </div>
+
+                <!-- Rate Female -->
+                <div class="form-group">
+                    <label>Rate Female<span>*</span></label>
+                    <InputText class="form-control custom-input normal-border"
+                               @bind-Value="hospitalModel.rateFemale" @bind:event="oninput" />
+                    <ValidationMessage For="@(() => hospitalModel.rateFemale)" />
+                </div>
+
+                <!-- Valid Upto -->
+                <div class="form-group">
+                    <label>Valid Upto</label>
+                    <InputDate class="form-control custom-input normal-border" @bind-Value="hospitalModel.ValidUpto" />
+                </div>
+
+                <!-- Concession Info -->
+                <div class="form-group">
+                    <label>Concession Info</label>
+                    <InputText class="form-control custom-input normal-border"
+                               @bind-Value="hospitalModel.concessionInfo" @bind:event="oninput" />
+                </div>
+
+                <!-- Remarks -->
+                <div class="form-group">
+                    <label>Remarks</label>
+                    <InputText class="form-control custom-input normal-border"
+                               @bind-Value="hospitalModel.remarks" @bind:event="oninput" />
+                </div>
+
             </div>
 
             <div class="button-container">
                 <button type="submit" class="save-btn">
-                    Add Hospital
+                    Submit
+                </button>
+
+                <button type="button" class="save-btn" @onclick="ResetForm">
+                    Reset
+                </button>
+
+                <button type="button" class="save-btn" @onclick="CloseForm">
+                    Close
                 </button>
             </div>
 
@@ -240,6 +301,22 @@
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void ResetForm()
+    {
+        hospitalModel = new HospitalModel();
+    }
+
+    private async Task CloseForm()
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm",
+            "Are you sure you want to close?");
+
+        if (confirmed)
+        {
+            Navigation.NavigateTo("/");
         }
     }
 }

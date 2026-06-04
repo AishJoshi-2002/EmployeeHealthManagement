@@ -52,4 +52,23 @@ public class HospitalModel
     public string? altContactPerson { get; set; }
 
     public string? altContactPersonDesignation { get; set; }
+
+    [EmailAddress(ErrorMessage = "Please enter a valid email")]
+    public string? altContactPersonEmail { get; set; }
+
+    [RegularExpression(@"^[6-9]\d{9}$",
+        ErrorMessage = "Please enter a valid 10-digit mobile number")]
+    public string? altContactPersonNoM { get; set; }
+
+    [Required(ErrorMessage = "Rate Male is required")]
+    public string? rateMale { get; set; }
+
+    [Required(ErrorMessage = "Rate Female is required")]
+    public string? rateFemale { get; set; }
+
+    public DateTime? ValidUpto { get; set; }
+
+    public string? concessionInfo { get; set; }
+
+    public string? remarks { get; set; }
 }
