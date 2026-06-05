@@ -1,4 +1,4 @@
-.page {
+/* .page {
     display: flex;
     min-height: 100vh;
 }
@@ -6,6 +6,19 @@
 main {
     flex: 1;
     min-width: 0;
+    transition: margin-left 0.3s ease;
+} */
+
+.page {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
     transition: margin-left 0.3s ease;
 }
 

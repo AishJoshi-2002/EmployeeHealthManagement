@@ -1,27 +1,6 @@
 const { sql } = require("../config/db");
 
-const getHospitals = async (req, res) => {
-    try {
-        const result = await sql.query(`SELECT * FROM HOSPITAL_MASTER`);
-        res.status(200).json(result.recordset);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({message: "Internal Server Error"});
-    }
-};
-
-const getHospitalsByCity = async (req, res) => {
-    try {
-        const { stateId, cityId } = req.query;
-        const result = await sql.query(`SELECT * FROM HOSPITAL_MASTER WHERE STATE = '${stateId}' AND CITY_ID = '${cityId}'`);
-        res.status(200).json(result.recordset);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({message: "Internal Server Error"});
-    }
-};
-
-const addHospital = async (req, res) => {
+const addHealthCheckupRequest = async (req, res) => {
     const transaction = new sql.Transaction();
     try {
         await transaction.begin();
@@ -47,24 +26,4 @@ const addHospital = async (req, res) => {
     }
 };
 
-const updateHospital = async (req, res) => {
-    try {
-        const result = await sql.query(`SELECT * FROM HOSPITAL_MASTER`);
-        res.status(200).json(result.recordset);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({message: "Internal Server Error"});
-    }
-};
-
-const updateHospitalRates = async (req, res) => {
-    try {
-        const result = await sql.query(`SELECT * FROM HOSPITAL_MASTER`);
-        res.status(200).json(result.recordset);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({message: "Internal Server Error"});
-    }
-};
-
-module.exports = { getHospitals, getHospitalsByCity, addHospital, updateHospital, updateHospitalRates };
+module.exports = { addHealthCheckupRequest };

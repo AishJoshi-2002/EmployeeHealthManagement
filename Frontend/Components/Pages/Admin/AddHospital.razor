@@ -1,10 +1,11 @@
-﻿@page "/add-hospital"
+﻿@page "/hospital-master/add-hospital"
 @using Frontend.Models
 @using Frontend.Data
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Forms
 @inject HttpClient Http
 @inject IJSRuntime JS
+@inject IConfiguration Configuration
 @inject NavigationManager Navigation
 @using System.Net.Http.Json
 @rendermode InteractiveServer
@@ -34,8 +35,8 @@
                 <!-- Hospital Name -->
                 <div class="form-group">
                     <label>Hospital Name<span>*</span></label>
-                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.name"
-                               @bind:event="oninput" maxlength="100" />
+                    <InputText class="form-control custom-input" @bind-Value="hospitalModel.name" @bind:event="oninput"
+                               maxlength="100" />
                     <ValidationMessage For="@(() => hospitalModel.name)" />
                 </div>
 
@@ -91,7 +92,8 @@
                 <div class="form-group">
                     <label>Pincode<span>*</span></label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.pincode"
-                               @bind:event="oninput" maxlength="6" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                               @bind:event="oninput" maxlength="6"
+                               onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     <ValidationMessage For="@(() => hospitalModel.pincode)" />
                 </div>
 
@@ -130,7 +132,8 @@
                 <div class="form-group">
                     <label>Contact No (M)<span>*</span></label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactNoM"
-                               @bind:event="oninput" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                               @bind:event="oninput" maxlength="10"
+                               onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     <ValidationMessage For="@(() => hospitalModel.contactNoM)" />
                 </div>
 
@@ -160,23 +163,24 @@
                 <div class="form-group">
                     <label>Alternate Contact No (M)</label>
                     <InputText class="form-control custom-input" @bind-Value="hospitalModel.contactNoM"
-                               @bind:event="oninput" maxlength="10" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                               @bind:event="oninput" maxlength="10"
+                               onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     <ValidationMessage For="@(() => hospitalModel.altContactPersonNoM)" />
                 </div>
 
                 <!-- Rate Male -->
                 <div class="form-group">
                     <label>Rate Male<span>*</span></label>
-                    <InputText class="form-control custom-input normal-border"
-                               @bind-Value="hospitalModel.rateMale" @bind:event="oninput" />
+                    <InputText class="form-control custom-input normal-border" @bind-Value="hospitalModel.rateMale"
+                               @bind:event="oninput" />
                     <ValidationMessage For="@(() => hospitalModel.rateMale)" />
                 </div>
 
                 <!-- Rate Female -->
                 <div class="form-group">
                     <label>Rate Female<span>*</span></label>
-                    <InputText class="form-control custom-input normal-border"
-                               @bind-Value="hospitalModel.rateFemale" @bind:event="oninput" />
+                    <InputText class="form-control custom-input normal-border" @bind-Value="hospitalModel.rateFemale"
+                               @bind:event="oninput" />
                     <ValidationMessage For="@(() => hospitalModel.rateFemale)" />
                 </div>
 
@@ -196,22 +200,22 @@
                 <!-- Remarks -->
                 <div class="form-group">
                     <label>Remarks</label>
-                    <InputText class="form-control custom-input normal-border"
-                               @bind-Value="hospitalModel.remarks" @bind:event="oninput" />
+                    <InputText class="form-control custom-input normal-border" @bind-Value="hospitalModel.remarks"
+                               @bind:event="oninput" />
                 </div>
 
             </div>
 
             <div class="button-container">
-                <button type="submit" class="save-btn">
+                <button type="submit" class="form-btn">
                     Submit
                 </button>
 
-                <button type="button" class="save-btn" @onclick="ResetForm">
+                <button type="button" class="form-btn" @onclick="ResetForm">
                     Reset
                 </button>
 
-                <button type="button" class="save-btn" @onclick="CloseForm">
+                <button type="button" class="form-btn" @onclick="CloseForm">
                     Close
                 </button>
             </div>
@@ -223,12 +227,18 @@
 </div>
 
 @code {
+    private string backendUrl = string.Empty;
 
     private HospitalModel hospitalModel = new();
 
     private List<StateModel> states = LocationData.States;
 
     private List<CityModel> cities = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        backendUrl = Configuration["BackendUrl"] ?? "";
+    }
 
     private void OnStateChanged()
     {
@@ -271,7 +281,7 @@
         {
             var response = await Http.PostAsJsonAsync(
                 @* "https://jsonplaceholder.typicode.com/posts", *@
-                "http://localhost:3000/api/hospital",
+                $"{backendUrl}/api/hospital",
                 hospitalModel
             );
 

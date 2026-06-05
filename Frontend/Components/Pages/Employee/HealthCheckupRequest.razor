@@ -1,5 +1,333 @@
-@page "/health-checkup-request"
+@page "/executive-health-checkup/health-checkup-request"
+
+@using Frontend.Models
+@using Frontend.Data
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Http
+@inject IJSRuntime JS
+@inject IConfiguration Configuration
+@inject MedicalPortalService MedicalPortalService
+@inject NavigationManager Navigation
+@using System.Net.Http.Json
+@rendermode InteractiveServer
 
 <PageTitle>Health Checkup Request</PageTitle>
 
-<h1>Health Checkup Request</h1>
+<div class="ehc-container">
+
+    <div class="ehc-card">
+
+        <div class="ehc-header">
+            Executive Health Checkup
+        </div>
+
+        @if (isLoading)
+        {
+            <div class="loading">
+                Loading...
+            </div>
+        }
+        else
+        {
+            <EditForm Model="@formModel" OnValidSubmit="SubmitForm" FormName="healthCheckupForm">
+                <DataAnnotationsValidator />
+
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label>Employee No.</label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.employeeNo" readonly />
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Employee Name</label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.employeeName" readonly />
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Designation</label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.designation" readonly />
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Division</label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.division" readonly />
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Emp Mob No.<span class="required">*</span></label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.employeeMobileNo" readonly />
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Emp Landline / Extn No.</label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.employeeLandlineNo" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Emp No. of Sub Unit / PU Head<span class="required">*</span></label>
+                        <InputText class="form-control custom-input readonly-field" @bind-Value="@employee.sbuEmployeeNo" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>
+                            State
+                            <span class="required">*</span>
+                        </label>
+
+                        <InputSelect class="form-select custom-input" @bind-Value="formModel.stateId" @bind-Value:after="OnStateChanged">
+
+                            <option value="">-- Select State --</option>
+
+                            @foreach (var state in states)
+                            {
+                                <option value="@state.Id">
+                                    @state.Name
+                                </option>
+                            }
+
+                        </InputSelect>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>
+                            City
+                            <span class="required">*</span>
+                        </label>
+
+                        <InputSelect class="form-select custom-input" @bind-Value="formModel.cityId" @bind-Value:after="OnCityChanged">
+
+                            <option value="">-- Select City --</option>
+
+                            @foreach (var city in cities)
+                            {
+                                <option value="@city.Id">
+                                    @city.Name
+                                </option>
+                            }
+
+                        </InputSelect>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label>
+                            Hospital Name
+                            <span class="required">*</span>
+                        </label>
+
+                        <InputSelect class="form-select" @bind-Value="formModel.hospitalId">
+
+                            <option value="">-- Select Hospital --</option>
+
+                            @foreach (var hospital in hospitals)
+                            {
+                                <option value="@hospital.hospitalId">
+                                    @hospital.name
+                                </option>
+                            }
+
+                        </InputSelect>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="health-table">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Dependent Name</th>
+                                <th>DOB</th>
+                                <th>Age (Years)</th>
+                                <th>Eligible</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var dependent in dependents)
+                            {
+                                <tr>
+                                    <td>
+                                        <InputCheckbox @bind-Value="dependent.IsSelected" />
+                                    </td>
+                                    <td>@dependent.Name</td>
+                                    <td>
+                                        @dependent.Dob.ToString("dd-MM-yyyy")
+                                    </td>
+                                    <td>@dependent.Age</td>
+                                    <td>
+                                        @(dependent.Eligible ? "Yes" : "No")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="disclaimer-section">
+
+    <div class="disclaimer-title">
+        Disclaimer<span class="required">*</span>
+    </div>
+
+    <div class="disclaimer-content">
+        <InputCheckbox @bind-Value="formModel.acceptDisclaimer" />
+
+        <span>
+            I hereby declare that the above submission is correct as per my
+            knowledge. If any fact later found incorrect then suitable action
+            is liable to be taken against me.
+        </span>
+    </div>
+
+</div>
+
+                <div class="button-section">
+                    <button type="submit" class="form-btn">Submit</button>
+                    <button type="button" class="form-btn" @onclick="ResetForm">Reset</button>
+                    <button type="button" class="form-btn" @onclick="CloseForm">Close</button>
+                </div>
+            </EditForm>
+        }
+    </div>
+</div>
+
+@code {
+    private string backendUrl = string.Empty;
+
+    private EmployeeDto employee = new();
+
+    private List<DependentDto> dependents = new();
+
+    private List<StateModel> states = LocationData.States;
+
+    private List<CityModel> cities = new();
+
+    private List<HospitalModel> hospitals = new();
+
+    private bool isLoading = true;
+
+    private HealthCheckupRequestModel formModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        backendUrl = Configuration["BackendUrl"] ?? "";
+        try
+        {
+            employee =
+                await MedicalPortalService.GetEmployeeAsync()
+                ?? new EmployeeDto();
+
+            Console.WriteLine(
+        System.Text.Json.JsonSerializer.Serialize(employee));
+
+            dependents =
+                await MedicalPortalService.GetDependentsAsync();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void OnStateChanged()
+    {
+        if (formModel.stateId != null)
+        {
+            cities = LocationData.Cities
+                .Where(c => c.StateId == formModel.stateId)
+                .ToList();
+
+            formModel.cityId = null;
+            formModel.hospitalId = null;
+
+            hospitals.Clear();
+        }
+    }
+
+    private async Task OnCityChanged()
+    {
+        Console.WriteLine($"Selected City: {formModel.cityId}");
+
+        if (formModel.cityId != null)
+        {
+            formModel.hospitalId = null;
+            try
+            {
+                Console.WriteLine($"Calling: {backendUrl}/api/hospital/get-hospitals-by-location?stateId={formModel.stateId}&cityId={formModel.cityId}");
+                hospitals = await Http.GetFromJsonAsync<List<HospitalModel>>
+                (
+                    $"{backendUrl}/api/hospital/get-hospitals-by-location?stateId={formModel.stateId}&cityId={formModel.cityId}"
+                ) ?? new();
+
+                Console.WriteLine($"Hospital Count: {hospitals.Count}");
+
+                if (hospitals == null || hospitals.Count == 0)
+                {
+                    bool addHospital = await JS.InvokeAsync<bool>(
+                        "confirm",
+                        "No hospital found for the selected city.\n\nWould you like to add a new hospital?"
+                    );
+
+                    if (addHospital)
+                    {
+                        Navigation.NavigateTo("/hospital-master/add-hospital");
+                    }
+                }
+            }
+            catch
+            {
+                hospitals = new();
+            }
+        }
+    }
+
+    private async Task SubmitForm()
+    {
+        var request = new HealthCheckupRequestModel
+        {
+            employeeNo = employee.employeeNo,
+            employeeName = employee.employeeName,
+            designation = employee.designation,
+            division = employee.division,
+            employeeMobileNo = employee.employeeMobileNo,
+            employeeLandlineNo = employee.employeeLandlineNo,
+            sbuEmployeeNo = employee.sbuEmployeeNo,
+
+            stateId = formModel.stateId,
+            cityId = formModel.cityId,
+            hospitalId = formModel.hospitalId,
+
+            acceptDisclaimer = formModel.acceptDisclaimer,
+
+            SelectedDependents = dependents
+            .Where(d => d.IsSelected)
+            .ToList()
+        };
+
+        await Http.PostAsJsonAsync(
+            $"{backendUrl}/api/health-checkup-request",
+            request
+        );
+    }
+
+    private void ResetForm()
+    {
+        formModel = new HealthCheckupRequestModel();
+
+        cities.Clear();
+        hospitals.Clear();
+    }
+
+    private async Task CloseForm()
+    {
+        bool confirmed = await JS.InvokeAsync<bool>(
+            "confirm",
+            "Are you sure you want to close?"
+        );
+
+        if (confirmed)
+        {
+            Navigation.NavigateTo("/executive-health-checkup");
+        }
+    }
+}

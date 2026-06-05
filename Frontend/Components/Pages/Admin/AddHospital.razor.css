@@ -65,7 +65,7 @@
     margin-top: 35px;
 }
 
-.save-btn {
+.form-btn {
     background: #5b7cff;
     color: white;
     border: none;
@@ -76,7 +76,7 @@
     transition: 0.2s ease;
 }
 
-.save-btn:hover {
+.form-btn:hover {
     background: #4b6ef5;
 }
 

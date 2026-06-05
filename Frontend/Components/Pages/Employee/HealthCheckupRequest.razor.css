@@ -1,0 +1,172 @@
+.healthcheckup-page {
+    padding: 40px;
+    min-height: 100vh;
+}
+
+.ehc-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #edf0f5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.ehc-header {
+    background: #e9edf2;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 8px;
+}
+
+.required {
+    color: #ff4d4f;
+}
+
+.custom-input {
+    height: 48px;
+    border-radius: 8px !important;
+    border: 1px solid #dfe3e8 !important;
+    box-shadow: none !important;
+    font-size: 14px;
+}
+
+.custom-input:focus {
+    border-color: #5b7cff !important;
+    box-shadow: 0 0 0 3px rgba(91,124,255,0.10) !important;
+}
+
+.readonly-field {
+    background: #edf1f5 !important;
+    color: #495057;
+}
+
+.health-table {
+    margin-top: 25px;
+}
+
+.health-table thead th {
+    background: #fafbfc;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px;
+    font-weight: 600;
+}
+
+.health-table tbody td {
+    padding: 14px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.disclaimer-section {
+    margin-top: 20px;
+}
+
+.disclaimer-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.disclaimer-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.button-section {
+    margin-top: 25px;
+}
+
+.form-btn {
+    background: #5b7cff;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: 0.2s ease;
+}
+
+.form-btn:hover {
+    background: #4b6ef5;
+}
+
+.loading {
+    padding: 20px;
+}
+
+::deep .validation-message {
+    color: #ff4d4f;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+::deep .invalid {
+    border-color: #ff4d4f !important;
+}
+
+@media (max-width: 900px) {
+
+    .ehc-card {
+        padding: 20px;
+    }
+
+    .button-section {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+.health-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.health-table th {
+    text-align: left;
+    padding: 14px 12px;
+    font-weight: 600;
+    background: #fafafa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.health-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+/* remove all vertical borders */
+.health-table th,
+.health-table td {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+/* optional hover */
+.health-table tbody tr:hover {
+    background: #fafcff;
+}
+
+.health-table th:first-child,
+.health-table td:first-child {
+    width: 80px;
+}
+
+.health-table th:nth-child(4),
+.health-table td:nth-child(4) {
+    width: 120px;
+}
